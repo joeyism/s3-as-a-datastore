@@ -1,3 +1,4 @@
+from typing import Dict, List, Tuple
 import os
 import io
 from s3aads.resources import s3_resource, s3_client
@@ -17,7 +18,7 @@ class Table(object):
   def keys(self) -> list:
     return self.query_by_key("")
 
-  def query_by_key(self, key=""):
+  def query_by_key(self, key="") -> List[str]:
     result = s3_client.list_objects_v2(Bucket=self.database.name, Prefix=os.path.join(self.name, key))
     contents = result.get("Contents")
     return [content['Key'][len(self.name)+1:] for content in contents if content.get('Key')]
@@ -69,7 +70,7 @@ class Table(object):
     key = column_placeholder.format(**kwargs)
     return self.delete_by_key(key)
 
-  def query(self, **kwargs):
+  def query(self, **kwargs) -> List[Dict[str, str]]:
     key_list = []
     for column in self.columns:
       if kwargs.get(column) is None:
@@ -83,3 +84,7 @@ class Table(object):
       vals = filename.split("/")
       results.append(dict(zip(self.columns, vals)))
     return results
+
+  def distinct(self, **kwargs) -> List[Tuple]:
+    results = self.query(**kwargs)
+    return list(set(tuple(result[col] for col in kwargs.keys()) for result in results))

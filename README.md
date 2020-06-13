@@ -98,7 +98,8 @@ Table(name, database, columns=[])
 
 `keys`: list of all keys in that table. Essentially, list the name of all files in the folder
 
-#### Param Methods
+#### Full Param Methods
+The following methods require all the params to be passed in order for it to work.
 
 `delete(**kwargs)`: If you pass the params, it'll delete that row of data
 
@@ -106,9 +107,18 @@ Table(name, database, columns=[])
 
 `select(**kwargs) -> bytes`: If you pass the params, it'll select that row of data and return the value
 
+#### Partial Param Methods
+The following methods can work with partial params passed in.
+
+`query(**kwargs) -> List[Dict[str, str]]`: If you pass the params, it'll return a list of params that is availabe in the table
+
+`distinct(**kwargs) -> List[Tuple]`: If you pass the params, it'll return a list of distinct tuple combinations
+
 #### Key Methods
 `delete_by_key(key)`: If you pass the full key/path of the file, it'll delete that row/file
 
 `insert_by_key(key, data: bytes)`: If you pass the full key/path of the file and the data (in bytes), it'll insert that row/file with the data
 
 `select_by_key(key) -> bytes`: If you pass the full key/path of the file, it'll select that row/file and return the data
+
+`query_by_key(key) -> List[str]`: If you pass the full or partial key/path of the file, it'll return a list of keys that matches the pattern
