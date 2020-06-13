@@ -1,6 +1,6 @@
 
-S3 As A Datastore
-=================
+S3 As A Datastore (S3aaDS)
+==========================
 
 S3-as-a-datastore is a library that lives on top of botocore and boto3, as a way to use S3 as a key-value datastore instead of a real datastore
 
