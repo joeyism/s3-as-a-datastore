@@ -76,7 +76,7 @@ class Table(object):
     for column in self.columns:
       if kwargs.get(column) is None:
         break
-      key_list.append(kwargs[column])
+      key_list.append(str(kwargs[column]))
 
     key = "/".join(key_list)
     filenames = self.query_by_key(key)
