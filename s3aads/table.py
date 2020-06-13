@@ -56,7 +56,9 @@ class Table(object):
 
   def select_string(self, **kwargs) -> str:
     data = self.select(**kwargs)
-    return data.decode("utf8")
+    if data:
+      return data.decode("utf8")
+    return
 
   def insert(self, **kwargs):
     if not self.columns:
