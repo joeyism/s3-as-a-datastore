@@ -135,3 +135,7 @@ The following methods can work with partial params passed in.
 #### Methods
 
 `distinct(columns: List[str]) -> List[Tuple]`: If you pass a list of columns, it'll return a list of distinct tuple combinations based on those columns
+
+`random_key() -> str`: Returns a random key to data
+
+`random() -> Dict`: Returns a set of params and `data` of a random data

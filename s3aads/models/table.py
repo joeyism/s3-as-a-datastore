@@ -1,4 +1,5 @@
 from typing import Dict, List, Tuple
+import random
 import os
 import io
 from s3aads.resources import s3_resource, s3_client
@@ -88,3 +89,12 @@ class Table(object):
   def distinct(self, columns: List[str]) -> List[Tuple]:
     keys = self.query_by_key()
     return list(set(tuple(key.split("/")[:len(columns)]) for key in keys))
+
+  def random_key(self) -> str:
+    return random.choice(self.keys)
+
+  def random(self) -> Dict:
+    key = self.random_key()
+    result = dict(zip(self.columns, key.split("/")))
+    result["data"] = self.select_by_key(key)
+    return result

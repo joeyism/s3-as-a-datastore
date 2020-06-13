@@ -69,7 +69,7 @@ but it can be called with
 .. code-block:: python3
 
    from s3aads import Table
-   table = Table(name="daily-data", database="joeyism-test")
+   table = Table(name="daily-data", database="joeyism-test", columns=["id", "year", "month", "day"])
    table.select(id=1, year=2020, month="01", day="01") # b'["a", "b"]'
    table.select(id=2, year=2020, month="01", day="01") # b'["c", "d"]'
    table.select(id=3, year=2020, month="01", day="01") # b'["abk20dj3i"]'
@@ -179,3 +179,7 @@ Methods
 ~~~~~~~
 
 ``distinct(columns: List[str]) -> List[Tuple]``\ : If you pass a list of columns, it'll return a list of distinct tuple combinations based on those columns
+
+``random_key() -> str``\ : Returns a random key to data
+
+``random() -> Dict``\ : Returns a set of params and ``data`` of a random data
