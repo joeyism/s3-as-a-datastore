@@ -1,4 +1,4 @@
-from .models.table import Table
-from .models.database import Database
+from .table import Table
+from .database import Database
 
-__version__ = "2.2.0"
+__version__ = "2.2.1"
