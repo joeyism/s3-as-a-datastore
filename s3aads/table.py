@@ -23,7 +23,7 @@ class Table(object):
     result = s3_client.list_objects_v2(Bucket=self.database.name, Prefix=os.path.join(self.name, key))
     contents = result.get("Contents")
     if contents is None:
-      return
+      return []
     return [content['Key'][len(self.name)+1:] for content in contents if content.get('Key')]
 
   def select_by_key(self, key) -> bytes:
