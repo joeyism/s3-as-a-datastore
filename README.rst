@@ -153,9 +153,13 @@ The following methods require all the params to be passed in order for it to wor
 
 ``delete(**kwargs)``\ : If you pass the params, it'll delete that row of data
 
-``insert(data:bytes, **kwargs)``\ : If you pass the params and value for ``data``\ , it'll insert that row of data
+``insert(data:bytes, **kwargs)``\ : If you pass the params and value for ``data``\ , it'll insert that row of bytes data
 
-``select(**kwargs) -> bytes``\ : If you pass the params, it'll select that row of data and return the value
+``insert_string(data:string, **kwargs)``\ : If you pass the params and value for ``data``\ , it'll insert that row of string data
+
+``select(**kwargs) -> bytes``\ : If you pass the params, it'll select that row of data and return the value as bytes
+
+``select_string(**kwargs) -> string``\ : If you pass the params, it'll select that row of data and return the value as a string
 
 Partial Param Methods
 ~~~~~~~~~~~~~~~~~~~~~

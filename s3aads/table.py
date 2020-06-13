@@ -52,6 +52,10 @@ class Table(object):
     key = column_placeholder.format(**kwargs)
     return self.select_by_key(key)
 
+  def select_string(self, **kwargs) -> str:
+    data = self.select(**kwargs)
+    return data.decode("utf8")
+
   def insert(self, **kwargs):
     if not self.columns:
       raise Exception("Columns not set. Please set columns before using this method")
@@ -65,6 +69,13 @@ class Table(object):
     column_placeholder = self.__form_column_placeholder__()
     key = column_placeholder.format(**kwargs)
     return self.insert_by_key(key, data)
+
+  def insert_string(self, **kwargs):
+    if kwargs.get("data") is None:
+      raise Exception("data not found. You must include something to insert")
+    data = kwargs["data"]
+    kwargs["data"] = data.encode("utf8")
+    return self.insert(**kwargs)
 
   def delete(self, **kwargs):
     if not self.columns:
