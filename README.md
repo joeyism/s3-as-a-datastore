@@ -112,8 +112,6 @@ The following methods can work with partial params passed in.
 
 `query(**kwargs) -> List[Dict[str, str]]`: If you pass the params, it'll return a list of params that is availabe in the table
 
-`distinct(**kwargs) -> List[Tuple]`: If you pass the params, it'll return a list of distinct tuple combinations
-
 #### Key Methods
 `delete_by_key(key)`: If you pass the full key/path of the file, it'll delete that row/file
 
@@ -122,3 +120,7 @@ The following methods can work with partial params passed in.
 `select_by_key(key) -> bytes`: If you pass the full key/path of the file, it'll select that row/file and return the data
 
 `query_by_key(key) -> List[str]`: If you pass the full or partial key/path of the file, it'll return a list of keys that matches the pattern
+
+#### Methods
+
+`distinct(columns: List[str]) -> List[Tuple]`: If you pass a list of columns, it'll return a list of distinct tuple combinations based on those columns

@@ -85,6 +85,6 @@ class Table(object):
       results.append(dict(zip(self.columns, vals)))
     return results
 
-  def distinct(self, **kwargs) -> List[Tuple]:
-    results = self.query(**kwargs)
-    return list(set(tuple(result[col] for col in kwargs.keys()) for result in results))
+  def distinct(self, columns: List[str]) -> List[Tuple]:
+    keys = self.query_by_key()
+    return list(set(tuple(key.split("/")[:len(columns)]) for key in keys))
