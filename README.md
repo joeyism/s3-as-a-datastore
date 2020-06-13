@@ -4,7 +4,15 @@ S3-as-a-datastore is a library that lives on top of botocore and boto3, as a way
 **DISCLAIMER**: This is NOT a real datastore, only the illusion of one. If you have remotely high I/O, this is NOT the library for you.
 
 ## Motivation
-S3 is really inexpensive compared to Memcache, or RDS. For services that has low read/writes operations, or only has CRD without the U (if you don't know what that means, read [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)), saving things in S3 gets similar results. However, writing to S3 requires a lot of documentation reading if you're not used to it. This library is an interface to communication with S3 like a very pseudo-ORM way.
+S3 is really inexpensive compared to Memcache, or RDS.
+
+For example, this is the RDS cost
+![rds-cost](/raw/master/doc/rds-cost.png)
+
+while tihs is S3 cost
+![s3-cost](/raw/master/doc/s3-cost.png)
+
+If a service doesn't have a lot of traffic, keeping up a RDS deployment is wasteful because it stands idle but incurring cost. S3 doesn't have that problem. For services that has low read/writes operations, or only has CRD without the U (if you don't know what that means, read [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)), saving things in S3 gets similar results. As long as data isn't getting upgrade, only written and read, S3 can be used. However, Writing to S3 requires a lot of documentation reading if you're not used to it. This library is an interface to communication with S3 like a very pseudo-ORM way.
 
 ## Installation
 ```bash
