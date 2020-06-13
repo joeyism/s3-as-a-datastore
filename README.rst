@@ -9,7 +9,24 @@ S3-as-a-datastore is a library that lives on top of botocore and boto3, as a way
 Motivation
 ----------
 
-S3 is really inexpensive compared to Memcache, or RDS. For services that has low read/writes operations, or only has CRD without the U (if you don't know what that means, read `CRUD <https://en.wikipedia.org/wiki/Create,_read,_update_and_delete>`_\ ), saving things in S3 gets similar results. However, writing to S3 requires a lot of documentation reading if you're not used to it. This library is an interface to communication with S3 like a very pseudo-ORM way.
+S3 is really inexpensive compared to Memcache, or RDS.
+
+For example, this is the RDS cost
+
+.. image:: https://raw.githubusercontent.com/joeyism/s3-as-a-datastore/master/doc/rds-cost.png
+   :target: https://raw.githubusercontent.com/joeyism/s3-as-a-datastore/master/doc/rds-cost.png
+   :alt: rds-cost
+
+
+while this is S3 cost
+
+
+.. image:: https://raw.githubusercontent.com/joeyism/s3-as-a-datastore/master/doc/s3-cost.png
+   :target: https://raw.githubusercontent.com/joeyism/s3-as-a-datastore/master/doc/s3-cost.png
+   :alt: s3-cost
+
+
+If a service doesn't have a lot of traffic, keeping up a RDS deployment is wasteful because it stands idle but incurring cost. S3 doesn't have that problem. For services that has low read/writes operations, or only has CRD without the U (if you don't know what that means, read `CRUD <https://en.wikipedia.org/wiki/Create,_read,_update_and_delete>`_\ ), saving things in S3 gets similar results. As long as data isn't getting upgrade, only written and read, S3 can be used. However, Writing to S3 requires a lot of documentation reading if you're not used to it. This library is an interface to communication with S3 like a very pseudo-ORM way.
 
 Installation
 ------------
@@ -52,7 +69,7 @@ but it can be called with
 .. code-block:: python3
 
    from s3aads import Table
-   table = Table(name="daily-data", database="daily-data")
+   table = Table(name="daily-data", database="joeyism-test")
    table.select(id=1, year=2020, month="01", day="01") # b'["a", "b"]'
    table.select(id=2, year=2020, month="01", day="01") # b'["c", "d"]'
    table.select(id=3, year=2020, month="01", day="01") # b'["abk20dj3i"]'
