@@ -65,3 +65,50 @@ table.delete(id=1, year=2020, month="01", day="01")
 table.delete(id=2, year=2020, month="01", day="01")
 table.delete(id=3, year=2020, month="01", day="01")
 ```
+## API
+
+### Database
+```python
+Database(name)
+```
+* *name*: name of the table
+
+**property**
+`tables`: list of tables for that Database (S3 Bucket)
+
+**Methods**
+
+`create()`: Create the database (S3 Bucket) if it doesn't exist
+
+`get_table(table_name) -> Table`: Pass in a table name and returns the Table object
+
+**Class method**
+
+`list_databases()`: List all available databases (S3 Buckets)
+
+### Table
+```python
+Table(name, database, columns=[])
+```
+* *name*: name of the table
+* *database*: Database object. If a string is passed instead, it'll attempt to fetch the Database object
+* *columns (default: [])*: Table columns
+
+**property**
+
+`keys`: list of all keys in that table. Essentially, list the name of all files in the folder
+
+**Param Methods**
+
+`delete(**kwargs)`: If you pass the params, it'll delete that row of data
+
+`insert(data:bytes, **kwargs)`: If you pass the params and value for `data`, it'll insert that row of data
+
+`select(**kwargs) -> bytes`: If you pass the params, it'll select that row of data and return the value
+
+**Key Methods**
+`delete_by_key(key)`: If you pass the full key/path of the file, it'll delete that row/file
+
+`insert_by_key(key, data: bytes)`: If you pass the full key/path of the file and the data (in bytes), it'll insert that row/file with the data
+
+`select_by_key(key) -> bytes`: If you pass the full key/path of the file, it'll select that row/file and return the data
