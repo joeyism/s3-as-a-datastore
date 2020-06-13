@@ -27,6 +27,8 @@ class Table(object):
     return [content['Key'][len(self.name)+1:] for content in contents if content.get('Key')]
 
   def select_by_key(self, key) -> bytes:
+    if not query_by_key(key):
+      return
     stringio = io.BytesIO()
     obj = self.database.bucket.Object(os.path.join(self.name, key))
     obj.download_fileobj(stringio)
