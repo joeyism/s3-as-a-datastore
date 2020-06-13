@@ -95,8 +95,8 @@ Database
 
 * *name*\ : name of the table
 
-Property
-~~~~~~~~
+Properties
+~~~~~~~~~~
 
 ``tables``\ : list of tables for that Database (S3 Bucket)
 
@@ -107,8 +107,8 @@ Methods
 
 ``get_table(table_name) -> Table``\ : Pass in a table name and returns the Table object
 
-Class method
-~~~~~~~~~~~~
+Class methods
+~~~~~~~~~~~~~
 
 ``list_databases()``\ : List all available databases (S3 Buckets)
 
@@ -124,8 +124,8 @@ Table
 * *database*\ : Database object. If a string is passed instead, it'll attempt to fetch the Database object
 * *columns (default: [])*\ : Table columns
 
-Property
-~~~~~~~~
+Properties
+~~~~~~~~~~
 
 ``keys``\ : list of all keys in that table. Essentially, list the name of all files in the folder
 
