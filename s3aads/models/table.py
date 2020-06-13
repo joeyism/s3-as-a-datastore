@@ -15,7 +15,10 @@ class Table(object):
 
   @property
   def keys(self) -> list:
-    result = s3_client.list_objects_v2(Bucket=self.database.name, Prefix=self.name)
+    return self.query_by_key("")
+
+  def query_by_key(self, key=""):
+    result = s3_client.list_objects_v2(Bucket=self.database.name, Prefix=os.path.join(self.name, key))
     contents = result.get("Contents")
     return [content['Key'][len(self.name)+1:] for content in contents if content.get('Key')]
 
@@ -65,3 +68,18 @@ class Table(object):
     column_placeholder = self.__form_column_placeholder__()
     key = column_placeholder.format(**kwargs)
     return self.delete_by_key(key)
+
+  def query(self, **kwargs):
+    key_list = []
+    for column in self.columns:
+      if kwargs.get(column) is None:
+        break
+      key_list.append(kwargs[column])
+
+    key = "/".join(key_list)
+    filenames = self.query_by_key(key)
+    results = []
+    for filename in filenames:
+      vals = filename.split("/")
+      results.append(dict(zip(self.columns, vals)))
+    return results
