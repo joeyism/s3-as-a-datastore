@@ -19,11 +19,13 @@ class Table(object):
   def keys(self) -> list:
     return self.query_by_key("")
 
-  def query_by_key(self, key="") -> List[str]:
+  def query_by_key(self, key="", sort_by=None) -> List[str]:
     result = s3_client.list_objects_v2(Bucket=self.database.name, Prefix=os.path.join(self.name, key))
     contents = result.get("Contents")
     if contents is None:
       return []
+    if sort_by:
+      contents = sorted(contents, key=lambda k: k[sort_by])
     return [content['Key'][len(self.name)+1:] for content in contents if content.get('Key')]
 
   def select_by_key(self, key) -> bytes:
