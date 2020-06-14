@@ -135,8 +135,7 @@ The following methods can work with partial params passed in.
 `select_by_key(key) -> bytes`: If you pass the full key/path of the file, it'll select that row/file and return the data
 
 `query_by_key(key="", sort_by=None) -> List[str]`: If you pass the full or partial key/path of the file, it'll return a list of keys that matches the pattern
-
-    * `sort_by`: Possible values are *Key*, *LastModified*, *ETag*, *Size*, *StorageClass*
+    - `sort_by`: Possible values are *Key*, *LastModified*, *ETag*, *Size*, *StorageClass*
 
 #### Methods
 
