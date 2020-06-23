@@ -109,8 +109,6 @@ class Table(object):
         break
       key_list.append(str(kwargs[column]))
 
-    import ipdb; ipdb.set_trace()
-
     key = "/".join(key_list)
     filenames = self.query_by_key(key)
     results = []
