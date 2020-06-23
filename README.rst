@@ -177,7 +177,10 @@ Key Methods
 
 ``select_by_key(key) -> bytes``\ : If you pass the full key/path of the file, it'll select that row/file and return the data
 
-``query_by_key(key) -> List[str]``\ : If you pass the full or partial key/path of the file, it'll return a list of keys that matches the pattern
+``query_by_key(key="", sort_by=None) -> List[str]``\ : If you pass the full or partial key/path of the file, it'll return a list of keys that matches the pattern
+
+
+* ``sort_by``\ : Possible values are *Key*\ , *LastModified*\ , *ETag*\ , *Size*\ , *StorageClass*
 
 Methods
 ~~~~~~~
@@ -187,3 +190,5 @@ Methods
 ``random_key() -> str``\ : Returns a random key to data
 
 ``random() -> Dict``\ : Returns a set of params and ``data`` of a random data
+
+``count() -> int``\ : Returns the number of objects in the table
