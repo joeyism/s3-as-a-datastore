@@ -14,10 +14,16 @@ class Table(object):
     else:
       self.database = database
     self.columns = columns
+    first_column = self.columns[0]
+    setattr(self, f"{first_column}s", self.first_column_values)
 
   @property
   def keys(self) -> list:
     return self.query_by_key("")
+
+  def first_column_values(self):
+    keys = self.keys
+    return list(set(key.split("/")[0] for key in keys))
 
   def count(self) -> int:
     return len(self.keys)

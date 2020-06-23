@@ -147,3 +147,7 @@ The following methods can work with partial params passed in.
 `random() -> Dict`: Returns a set of params and `data` of a random data
 
 `count() -> int`: Returns the number of objects in the table
+
+`<first_column_name>s() -> List`: Taking the name of the first column, returns a list of unique values.
+
+- For example, a table with columns `["id", "name"]` will have the method `table.ids()` which will return a list of unique ids
