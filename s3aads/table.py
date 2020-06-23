@@ -32,7 +32,7 @@ class Table(object):
     return [obj for obj in self.database.bucket.objects.filter(Prefix=os.path.join(self.name, key))]
 
   def query_by_key(self, key="", sort_by=None) -> List[str]:
-    result = self.select_all_by_filter()
+    result = self.select_all_by_filter(key=key)
     contents = [obj.meta.data for obj in result]
     if contents is None:
       return []
@@ -108,6 +108,8 @@ class Table(object):
       if kwargs.get(column) is None:
         break
       key_list.append(str(kwargs[column]))
+
+    import ipdb; ipdb.set_trace()
 
     key = "/".join(key_list)
     filenames = self.query_by_key(key)
