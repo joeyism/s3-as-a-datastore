@@ -145,3 +145,5 @@ The following methods can work with partial params passed in.
 `random_key() -> str`: Returns a random key to data
 
 `random() -> Dict`: Returns a set of params and `data` of a random data
+
+`count() -> int`: Returns the number of objects in the table

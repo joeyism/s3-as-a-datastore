@@ -19,9 +19,15 @@ class Table(object):
   def keys(self) -> list:
     return self.query_by_key("")
 
+  def count(self) -> int:
+    return len(self.keys)
+
+  def select_all_by_filter(self, key=""):
+    return [obj for obj in self.database.bucket.objects.filter(Prefix=os.path.join(self.name, key))]
+
   def query_by_key(self, key="", sort_by=None) -> List[str]:
-    result = s3_client.list_objects_v2(Bucket=self.database.name, Prefix=os.path.join(self.name, key))
-    contents = result.get("Contents")
+    result = self.select_all_by_filter()
+    contents = [obj.meta.data for obj in result]
     if contents is None:
       return []
     if sort_by:
