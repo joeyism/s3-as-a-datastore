@@ -124,6 +124,8 @@ Methods
 
 ``get_table(table_name) -> Table``\ : Pass in a table name and returns the Table object
 
+``drop_table(table_name)``\ : Fully drops table
+
 Class methods
 ~~~~~~~~~~~~~
 
@@ -194,6 +196,8 @@ Methods
 ``count() -> int``\ : Returns the number of objects in the table
 
 ``<first_column_name>s() -> List``\ : Taking the name of the first column, returns a list of unique values.
+
+``<n_column_name>s() -> List``\ : Taking the name of the Nth column, returns a list of unique values.
 
 
 * For example, a table with columns ``["id", "name"]`` will have the method ``table.ids()`` which will return a list of unique ids
