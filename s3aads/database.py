@@ -24,6 +24,9 @@ class Database(object):
     if table_name in self.tables:
       return Table(table_name, database=self)
 
+  def drop_table(self, table_name):
+    self.bucket.objects.filter(Prefix=f"{table_name}/").delete()
+
   @classmethod
   def list_databases(cls) -> list:
     response = s3_client.list_buckets()

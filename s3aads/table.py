@@ -14,8 +14,16 @@ class Table(object):
     else:
       self.database = database
     self.columns = columns
-    first_column = self.columns[0]
-    setattr(self, f"{first_column}s", self.first_column_values)
+
+    def column_generator(self, column_number):
+      def get_values():
+        keys = self.keys
+        return list(set(key.split("/")[column_number] for key in keys))
+
+      return get_values
+
+    for i, col in enumerate(self.columns):
+      setattr(self, f"{col}s", column_generator(self, i))
 
   @property
   def keys(self) -> list:
