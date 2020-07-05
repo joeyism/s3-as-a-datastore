@@ -21,6 +21,10 @@ If a service doesn't have a lot of traffic, keeping up a RDS deployment is waste
 ```bash
 pip3 install s3aads
 ```
+or 
+```bash
+pip3 install s3-as-a-datastore
+```
 
 ## Idea
 The main idea is a database is mapped to a bucket, and a table is the top level "folder" of s3. The rest of nested "folders" are columns. Because the way buckets work in S3, they must be unique for all S3 buckets. This also mean the combination of keys must be unique
