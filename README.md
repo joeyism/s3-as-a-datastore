@@ -163,3 +163,11 @@ The following methods can work with partial params passed in.
 `copy(key) -> Copy`: Returns a Copy object
 
 `copy(key).to(table2, key) -> None`: Copies from one table to another
+
+- Example: ```
+from s3aads import Table
+                                                        
+table1 = Table("table1", database="db1", columns=["a"])
+table2 = Table("table2", database="db2", columns=["a"])
+table1.copy(key).to(table2, key)
+```

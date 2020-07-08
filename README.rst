@@ -35,6 +35,12 @@ Installation
 
    pip3 install s3aads
 
+or 
+
+.. code-block:: bash
+
+   pip3 install s3-as-a-datastore
+
 Idea
 ----
 
@@ -201,3 +207,7 @@ Methods
 
 
 * For example, a table with columns ``["id", "name"]`` will have the method ``table.ids()`` which will return a list of unique ids
+
+``copy(key) -> Copy``\ : Returns a Copy object
+
+``copy(key).to(table2, key) -> None``\ : Copies from one table to another
