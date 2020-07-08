@@ -164,7 +164,8 @@ The following methods can work with partial params passed in.
 
 `copy(key).to(table2, key) -> None`: Copies from one table to another
 
-- Example: ```
+- Example:
+```
 from s3aads import Table
                                                         
 table1 = Table("table1", database="db1", columns=["a"])
