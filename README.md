@@ -162,7 +162,7 @@ The following methods can work with partial params passed in.
 
 `copy(key) -> Copy`: Returns a Copy object
 
-`copy(key).to(table2, key) -> None`: Copies from one table to another
+`copy(key).to(table2, key, **kwargs) -> None`: Copies from one table to another. kwargs details can be seen in [boto3 docs](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.copy_object)
 
 - Example:
 ```python
