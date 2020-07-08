@@ -3,6 +3,7 @@ import random
 import os
 import io
 from s3aads.resources import s3_resource, s3_client
+from s3aads import Copy
 
 class Table(object):
 
@@ -137,3 +138,19 @@ class Table(object):
     result = dict(zip(self.columns, key.split("/")))
     result["data"] = self.select_by_key(key)
     return result
+
+  def copy(self, key) -> Copy:
+    """
+    Usage:
+      copy(key).to(dest_table, dest_key)
+
+    Example:
+      from s3aads import Table
+
+      table1 = Table("table1", database="db1", columns=["a"])
+      table2 = Table("table2", database="db2", columns=["a"])
+      table1.copy(key).to(table2, key)
+    """
+
+    return Copy(self, key)
+

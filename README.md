@@ -159,3 +159,7 @@ The following methods can work with partial params passed in.
 `<n_column_name>s() -> List`: Taking the name of the Nth column, returns a list of unique values.
 
 - For example, a table with columns `["id", "name"]` will have the method `table.ids()` which will return a list of unique ids
+
+`copy(key) -> Copy`: Returns a Copy object
+
+`copy(key).to(table2, key) -> None`: Copies from one table to another
