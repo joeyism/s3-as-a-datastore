@@ -170,5 +170,6 @@ from s3aads import Table
                                                         
 table1 = Table("table1", database="db1", columns=["a"])
 table2 = Table("table2", database="db2", columns=["a"])
+key = table1.keys[0]
 table1.copy(key).to(table2, key)
 ```
