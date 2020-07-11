@@ -120,9 +120,13 @@ The following methods require all the params to be passed in order for it to wor
 
 `delete(**kwargs)`: If you pass the params, it'll delete that row of data
 
-`insert(data:bytes, **kwargs)`: If you pass the params and value for `data`, it'll insert that row of bytes data
+`insert(data:bytes, metadata:dict={}, **kwargs)`: If you pass the params and value for `data`, it'll insert that row of bytes data.
+- `data` is the data to save, in `bytes`
+- `metadata` (optional) is used if you want to pass in extra data that is related to S3. Available params can be found [in the boto3 docs](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Object.put)
 
-`insert_string(data:string, **kwargs)`: If you pass the params and value for `data`, it'll insert that row of string data
+`insert_string(data:string, metadata:dict={}, **kwargs)`: If you pass the params and value for `data`, it'll insert that row of string data
+- `data` is the data to save, in `str`
+- `metadata` (optional) is used if you want to pass in extra data that is related to S3. Available params can be found [in the boto3 docs](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Object.put)
 
 `select(**kwargs) -> bytes`: If you pass the params, it'll select that row of data and return the value as bytes
 

@@ -57,10 +57,11 @@ class Table(object):
     obj.download_fileobj(stringio)
     return stringio.getvalue()
 
-  def insert_by_key(self, key, data):
+  def insert_by_key(self, key, data, **kwargs):
     obj = self.database.bucket.Object(os.path.join(self.name, key))
     return obj.put( 
-      Body=data
+      Body=data,
+      **kwargs
     )
 
   def delete_by_key(self, key):
@@ -94,8 +95,9 @@ class Table(object):
       raise Exception("data must be bytes")
 
     column_placeholder = self.__form_column_placeholder__()
+    metadata = kwargs.pop("metadata", {})
     key = column_placeholder.format(**kwargs)
-    return self.insert_by_key(key, data)
+    return self.insert_by_key(key, data, **metadata)
 
   def insert_string(self, **kwargs):
     if kwargs.get("data") is None:
