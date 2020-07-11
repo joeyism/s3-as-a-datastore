@@ -166,6 +166,8 @@ The following methods can work with partial params passed in.
 
 `filter_objects_by_<column_name>(val: str) -> List[object]`: This method exists for each column name. It allows the user to provide a string input, and output a list of `object`s which are the keys to the table
 
+`filter_objects_by(col1=val1, col2=val2, ...) -> List[object]`: Similar to `filter_objects_by_<column_name>(val: str)`, except instead of filtering for one, the method can filter for multiple columns and values
+
 - For example, a table with columns `["id", "name"]` will have the method `table.ids()` which will return a list of unique ids
 
 `copy(key) -> Copy`: Returns a Copy object

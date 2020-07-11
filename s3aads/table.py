@@ -41,10 +41,12 @@ class Table(object):
     result = []
     for key in self.keys:
       d = dict(zip(self.columns, key.split("/")))
-      obj = namedtuple("Object", d.keys())(*d.values())
-      obj.key = key
-      result.append(obj)
+      result.append(namedtuple("Object", d.keys())(*d.values()))
     return result
+
+  def filter_objects_by(self, **kwargs):
+    return [obj for obj in self.objects
+        if all(getattr(obj, key) == val for key, val in kwargs.items())]
 
   def first_column_values(self):
     keys = self.keys
