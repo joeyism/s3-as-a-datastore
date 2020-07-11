@@ -4,6 +4,7 @@ import os
 import io
 from s3aads.resources import s3_resource, s3_client
 from s3aads import Copy
+from collections import namedtuple
 
 class Table(object):
 
@@ -20,15 +21,28 @@ class Table(object):
       def get_values():
         keys = self.keys
         return list(set(key.split("/")[column_number] for key in keys))
-
       return get_values
+
+    def filter_generator(self, column_name):
+      def filter_by(val):
+        return [obj for obj in self.objects if getattr(obj, column_name) == val]
+      return filter_by
 
     for i, col in enumerate(self.columns):
       setattr(self, f"{col}s", column_generator(self, i))
+      setattr(self, f"filter_objects_by_{col}", filter_generator(self, col))
 
   @property
-  def keys(self) -> list:
+  def keys(self) -> List:
     return self.query_by_key("")
+
+  @property
+  def objects(self) -> List[object]:
+    result = []
+    for key in self.keys:
+      d = dict(zip(self.columns, key.split("/")))
+      result.append(namedtuple("Object", d.keys())(*d.values()))
+    return result
 
   def first_column_values(self):
     keys = self.keys

@@ -115,6 +115,8 @@ Table(name, database, columns=[])
 
 `keys`: list of all keys in that table. Essentially, list the name of all files in the folder
 
+`objects`: list of all objects in that table. Essentially, list the keys but broken down so it can be selected by column name
+
 #### Full Param Methods
 The following methods require all the params to be passed in order for it to work.
 
@@ -158,9 +160,11 @@ The following methods can work with partial params passed in.
 
 `count() -> int`: Returns the number of objects in the table
 
-`<first_column_name>s() -> List`: Taking the name of the first column, returns a list of unique values.
+`<first_column_name>s() -> List[str]`: Taking the name of the first column, returns a list of unique values.
 
-`<n_column_name>s() -> List`: Taking the name of the Nth column, returns a list of unique values.
+`<n_column_name>s() -> List[str]`: Taking the name of the Nth column, returns a list of unique values.
+
+`filter_objects_by_<column_name>(val: str) -> List[object]`: This method exists for each column name. It allows the user to provide a string input, and output a list of `object`s which are the keys to the table
 
 - For example, a table with columns `["id", "name"]` will have the method `table.ids()` which will return a list of unique ids
 
