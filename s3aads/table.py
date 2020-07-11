@@ -41,7 +41,9 @@ class Table(object):
     result = []
     for key in self.keys:
       d = dict(zip(self.columns, key.split("/")))
-      result.append(namedtuple("Object", d.keys())(*d.values()))
+      obj = namedtuple("Object", d.keys())(*d.values())
+      obj.key = key
+      result.append(obj)
     return result
 
   def first_column_values(self):
