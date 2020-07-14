@@ -11,7 +11,7 @@ version = re.search(
     re.M
     ).group(1)
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 for name in ['s3aads', 's3-as-a-datastore']:
@@ -21,6 +21,7 @@ for name in ['s3aads', 's3-as-a-datastore']:
     version=version,
     description='S3-as-a-datastore is a library that lives on top of botocore and boto3, as a way to use S3 as a key-value datastore instead of a real datastore',
     long_description = long_description,
+    long_description_content_type='text/markdown',
     author='joeyism',
     author_email='joeyism@gmail.com',
     url='https://github.com/joeyism/s3-as-a-datastore', # use the URL to the github repo
