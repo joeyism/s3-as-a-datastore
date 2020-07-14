@@ -154,6 +154,8 @@ Properties
 
 ``keys``\ : list of all keys in that table. Essentially, list the name of all files in the folder
 
+``objects``\ : list of all objects in that table. Essentially, list the keys but broken down so it can be selected by column name
+
 Full Param Methods
 ~~~~~~~~~~~~~~~~~~
 
@@ -161,9 +163,17 @@ The following methods require all the params to be passed in order for it to wor
 
 ``delete(**kwargs)``\ : If you pass the params, it'll delete that row of data
 
-``insert(data:bytes, **kwargs)``\ : If you pass the params and value for ``data``\ , it'll insert that row of bytes data
+``insert(data:bytes, metadata:dict={}, **kwargs)``\ : If you pass the params and value for ``data``\ , it'll insert that row of bytes data.
 
-``insert_string(data:string, **kwargs)``\ : If you pass the params and value for ``data``\ , it'll insert that row of string data
+
+* ``data`` is the data to save, in ``bytes``
+* ``metadata`` (optional) is used if you want to pass in extra data that is related to S3. Available params can be found `in the boto3 docs <https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Object.put>`_
+
+``insert_string(data:string, metadata:dict={}, **kwargs)``\ : If you pass the params and value for ``data``\ , it'll insert that row of string data
+
+
+* ``data`` is the data to save, in ``str``
+* ``metadata`` (optional) is used if you want to pass in extra data that is related to S3. Available params can be found `in the boto3 docs <https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Object.put>`_
 
 ``select(**kwargs) -> bytes``\ : If you pass the params, it'll select that row of data and return the value as bytes
 
@@ -178,6 +188,8 @@ The following methods can work with partial params passed in.
 
 Key Methods
 ~~~~~~~~~~~
+
+``to_key(self, **kwargs) -> str``\ : When you pass the full kwargs, it'll return the key
 
 ``delete_by_key(key)``\ : If you pass the full key/path of the file, it'll delete that row/file
 
@@ -201,13 +213,28 @@ Methods
 
 ``count() -> int``\ : Returns the number of objects in the table
 
-``<first_column_name>s() -> List``\ : Taking the name of the first column, returns a list of unique values.
+``<first_column_name>s() -> List[str]``\ : Taking the name of the first column, returns a list of unique values.
 
-``<n_column_name>s() -> List``\ : Taking the name of the Nth column, returns a list of unique values.
+``<n_column_name>s() -> List[str]``\ : Taking the name of the Nth column, returns a list of unique values.
+
+``filter_objects_by_<column_name>(val: str) -> List[object]``\ : This method exists for each column name. It allows the user to provide a string input, and output a list of ``object``\ s which are the keys to the table
+
+`filter_objects_by(col1=val1, col2=val2, ...) -> List[object]`: Similar to `filter_objects_by_<column_name>(val: str)`, except instead of filtering for one, the method can filter for multiple columns and values
 
 
 * For example, a table with columns ``["id", "name"]`` will have the method ``table.ids()`` which will return a list of unique ids
 
 ``copy(key) -> Copy``\ : Returns a Copy object
 
-``copy(key).to(table2, key) -> None``\ : Copies from one table to another
+`copy(key).to(table2, key, **kwargs) -> None`: Copies from one table to another. kwargs details can be seen in [boto3 docs](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.copy_object)
+
+
+* Example:
+  ```python
+  from s3aads import Table
+
+table1 = Table("table1", database="db1", columns=["a"])
+table2 = Table("table2", database="db2", columns=["a"])
+key = table1.keys[0]
+table1.copy(key).to(table2, key)
+```
