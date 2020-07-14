@@ -131,6 +131,14 @@ class Table(object):
     key = column_placeholder.format(**kwargs)
     return self.delete_by_key(key)
 
+  def to_key(self, **kwargs) -> str:
+    key_list = [self.name]
+    for column in self.columns:
+      if kwargs.get(column) is None:
+        raise Exception(f"Missing {column}")
+      key_list.append(str(kwargs[column]))
+    return "/".join(key_list)
+
   def query(self, **kwargs) -> List[Dict[str, str]]:
     key_list = []
     for column in self.columns:

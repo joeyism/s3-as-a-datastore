@@ -140,6 +140,9 @@ The following methods can work with partial params passed in.
 `query(**kwargs) -> List[Dict[str, str]]`: If you pass the params, it'll return a list of params that is availabe in the table
 
 #### Key Methods
+
+`to_key(self, **kwargs) -> str`: When you pass the full kwargs, it'll return the key
+
 `delete_by_key(key)`: If you pass the full key/path of the file, it'll delete that row/file
 
 `insert_by_key(key, data: bytes)`: If you pass the full key/path of the file and the data (in bytes), it'll insert that row/file with the data
