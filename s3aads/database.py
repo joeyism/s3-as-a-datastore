@@ -16,7 +16,7 @@ class Database(object):
     return [prefix['Prefix'][:-1] for prefix in prefixes]
 
   def create(self):
-    if self.name in DataBase.list_databases():
+    if self.name in self.list_databases():
       return
     return s3_client.create_bucket(Bucket=self.name)
 
